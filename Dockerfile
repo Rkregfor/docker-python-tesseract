@@ -69,4 +69,4 @@ ENV TESSDATA_PREFIX ${DIST}/tesseract/share/tessdata
 
 WORKDIR /var/task
 
-CMD ["python3"]
+CMD ["python"]
