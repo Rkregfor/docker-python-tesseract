@@ -67,7 +67,7 @@ RUN curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/ra
     curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/${OCR_LANG2}.traineddata > ${OCR_LANG2}.traineddata
 ENV TESSDATA_PREFIX ${DIST}/tesseract/share/tessdata
 
-ENV PATH="/opt/build-dist/bin/tesseract:${PATH}"
+ENV PATH="/opt/build-dist/bin:${PATH}"
 WORKDIR /var/task
 
 CMD ["python"]
