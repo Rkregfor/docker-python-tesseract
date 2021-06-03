@@ -8,9 +8,7 @@ ARG TMP_BUILD=/tmp
 ARG TESSERACT=/opt/tesseract
 ARG LEPTONICA=/opt/leptonica
 ARG DIST=/opt/build-dist
-# change OCR_LANG to enable the layer for different languages
-ARG OCR_LANG1=deu
-ARG OCR_LANG2=fra
+
 # change TESSERACT_DATA_SUFFIX to use different datafiles (options: "_best", "_fast" and "")
 ARG TESSERACT_DATA_SUFFIX=_fast
 ARG TESSERACT_DATA_VERSION=4.0.0
@@ -62,9 +60,21 @@ RUN mkdir -p ${DIST}/lib && mkdir -p ${DIST}/bin && \
 
 WORKDIR ${DIST}/tesseract/share/tessdata
 RUN curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/osd.traineddata > osd.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/chi_sim.traineddata > chi_sim.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/chi_sim_vert.traineddata > chi_sim_vert.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/chi_tra.traineddata > chi_tra.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/chi_tra_vert.traineddata > chi_tra_vert.traineddata && \
     curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/eng.traineddata > eng.traineddata && \
-    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/${OCR_LANG1}.traineddata > ${OCR_LANG1}.traineddata && \
-    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/${OCR_LANG2}.traineddata > ${OCR_LANG2}.traineddata
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/spa.traineddata > spa.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/fra.traineddata > fra.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/deu.traineddata > deu.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/por.traineddata > por.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/rus.traineddata > rus.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/ara.traineddata > ara.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/hin.traineddata > hin.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/jpn.traineddata > jpn.traineddata && \
+    curl -L https://github.com/tesseract-ocr/tessdata${TESSERACT_DATA_SUFFIX}/raw/${TESSERACT_DATA_VERSION}/jpn_vert.traineddata > jpn_vert.traineddata
+
 ENV TESSDATA_PREFIX ${DIST}/tesseract/share/tessdata
 
 ENV PATH="/opt/build-dist/bin:${PATH}"
